@@ -1,1 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panda Care - Support</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --bg-color: #f9f9fb;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-secondary: #666666;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --transition-speed: 0.3s;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 600px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Language Toggle Button */
+        .lang-switch {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+            font-weight: 500;
+        }
+
+        .lang-switch:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Content */
+        .content {
+            padding: 30px;
+        }
+
+        .intro-text {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        /* Contact Card */
+        .contact-card {
+            background: #f0f7f4;
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            margin-bottom: 15px;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .label {
+            font-weight: 600;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .email-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            word-break: break-all;
+            transition: color 0.2s;
+        }
+
+        .email-link:hover {
+            color: #219150;
+            text-decoration: underline;
+        }
+
+        .response-time {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* FAQ */
+        .faq-section h2 {
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+        }
+
+        .question {
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .question span {
+            color: var(--accent-color);
+            margin-right: 6px;
+            font-weight: bold;
+            min-width: 20px;
+        }
+
+        .answer {
+            color: var(--text-secondary);
+            font-size: 14px;
+            padding-left: 20px;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .app-info {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ddd;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .app-info div {
+            margin: 4px 0;
+        }
+
+        /* Utility for language switching */
+        /* Default: Hide English, Show Chinese (if no class or show-zh) */
+        [lang="en"] {
+            display: none;
+        }
+        
+        /* If show-en class is present on body: Hide Chinese, Show English */
+        body.show-en [lang="zh"] {
+            display: none;
+        }
+        
+        body.show-en [lang="en"] {
+            display: block;
+        }
+        
+        /* Ensure inline elements like spans behave correctly */
+        span[lang="en"], strong[lang="en"], a[lang="en"] {
+            display: none;
+        }
+        body.show-en span[lang="en"], 
+        body.show-en strong[lang="en"], 
+        body.show-en a[lang="en"] {
+            display: inline;
+        }
+        
+        @media (max-width: 480px) {
+            body { padding: 20px 15px; }
+            header { padding: 30px 20px; }
+            .content { padding: 20px; }
+            .lang-switch { top: 10px; right: 10px; font-size: 11px; padding: 4px 10px; }
+        }
+    </style>
+</head>
+<!-- Changed default class to show-en -->
+<body class="show-en">
+
+    <div class="container">
+        <header>
+            <!-- Changed default button text to 中文 -->
+            <button class="lang-switch" id="langToggle">中文</button>
+            
+            <h1>
+                <span lang="zh">Panda Care</span>
+                <span lang="en">Panda Care</span>
+            </h1>
+            <p>
+                <span lang="zh">用户支持与帮助</span>
+                <span lang="en">User Support & Help</span>
+            </p>
+        </header>
+
+        <div class="content">
+            <p class="intro-text">
+                <span lang="zh">
+                    感谢您使用 Panda Care！<br>
+                    如果您在使用过程中遇到任何问题、有任何建议，或发现程序错误（Bug），请通过以下方式联系我们，我们将尽快为您解答。
+                </span>
+                <span lang="en">
+                    Thank you for using Panda Care!<br>
+                    If you encounter any issues, have suggestions, or find any bugs, please contact us via the methods below. We will get back to you as soon as possible.
+                </span>
+            </p>
+
+            <div class="contact-card">
+                <div class="contact-item">
+                    <div class="label">
+                        <span lang="zh">📧 联系邮箱</span>
+                        <span lang="en">📧 Contact Email</span>
+                    </div>
+                    <a href="mailto:onebonectech@icloud.com" class="email-link">onebonectech@icloud.com</a>
+                    <div style="font-size: 12px; color: #888; margin-top: 4px;">
+                        <span lang="zh">(我们承诺会认真查看每一封邮件)</span>
+                        <span lang="en">(We promise to read every email carefully)</span>
+                    </div>
+                </div>
+                
+                <div class="contact-item" style="margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 10px;">
+                    <div class="label">
+                        <span lang="zh">⏰ 响应时间</span>
+                        <span lang="en">⏰ Response Time</span>
+                    </div>
+                    <span class="response-time">
+                        <span lang="zh">我们通常会在收到邮件后的 <strong>24-48 小时</strong> 内回复（工作日）。</span>
+                        <span lang="en">We typically reply within <strong>24-48 hours</strong> after receiving your email (on business days).</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>
+                    <span lang="zh">❓ 常见问题</span>
+                    <span lang="en">❓ FAQ</span>
+                </h2>
+                
+                <div class="faq-item">
+                    <div class="question">
+                        <span>Q:</span> 
+                        <span lang="zh">如何联系人工客服？</span>
+                        <span lang="en">How do I contact human support?</span>
+                    </div>
+                    <div class="answer">
+                        <span lang="zh">请直接发送电子邮件至上方邮箱，并在标题中注明“<strong>人工客服</strong>”，我们会优先处理。</span>
+                        <span lang="en">Please send an email to the address above and include "<strong>Human Support</strong>" in the subject line. We will prioritize your request.</span>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">
+                        <span>Q:</span> 
+                        <span lang="zh">应用闪退或无法登录怎么办？</span>
+                        <span lang="en">What if the app crashes or I can't log in?</span>
+                    </div>
+                    <div class="answer">
+                        <span lang="zh">请尝试重启应用或检查网络连接。如果问题依旧，请发邮件告诉我们您的设备型号（如 iPhone 14）和 iOS 版本号，以便我们要快定位问题。</span>
+                        <span lang="en">Please try restarting the app or checking your network connection. If the problem persists, please email us with your device model (e.g., iPhone 14) and iOS version so we can locate the issue quickly.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="app-info">
+                <div>
+                    <strong><span lang="zh">应用名称：</span><span lang="en">App Name:</span></strong>
+                    <span lang="zh">Panda Care</span><span lang="en">Panda Care</span>
+                </div>
+                <div>
+                    <strong><span lang="zh">开发者：</span><span lang="en">Developer:</span></strong>
+                    <span lang="zh">Tian</span><span lang="en">Tian</span>
+                </div>
+                <div>
+                    <strong><span lang="zh">当前版本：</span><span lang="en">Current Version:</span></strong>
+                    <span lang="zh">v1.0.0</span><span lang="en">v1.0.0</span>
+                </div>
+                <div style="margin-top: 10px; opacity: 0.6;">
+                    © 2026 Panda Care. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function () {
+            const langToggle = document.getElementById('langToggle');
+
+            langToggle.addEventListener('click', toggleLanguage);
+
+            function toggleLanguage() {
+                const body = document.body;
+                const btn = langToggle;
+
+                if (body.classList.contains('show-en')) {
+                    // Switch to Chinese
+                    body.classList.remove('show-en');
+                    body.classList.add('show-zh');
+                    btn.textContent = 'English';
+                    document.documentElement.lang = 'zh-CN';
+                } else {
+                    // Switch to English
+                    body.classList.remove('show-zh');
+                    body.classList.add('show-en');
+                    btn.textContent = '中文';
+                    document.documentElement.lang = 'en';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
