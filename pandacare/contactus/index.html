@@ -14,17 +14,12 @@
             --text-secondary: #666666;
             --border-radius: 12px;
             --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            --transition-speed: 0.3s;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
@@ -46,7 +41,6 @@
             position: relative;
         }
 
-        /* Header */
         header {
             background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
             color: white;
@@ -55,20 +49,9 @@
             position: relative;
         }
 
-        header h1 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
+        header h1 { font-size: 24px; font-weight: 600; margin-bottom: 8px; }
+        header p { font-size: 14px; opacity: 0.9; font-weight: 300; }
 
-        header p {
-            font-size: 14px;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-
-        /* Language Toggle Button */
         .lang-switch {
             position: absolute;
             top: 15px;
@@ -84,25 +67,11 @@
             backdrop-filter: blur(4px);
             font-weight: 500;
         }
+        .lang-switch:hover { background: rgba(255, 255, 255, 0.3); transform: scale(1.05); }
 
-        .lang-switch:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
+        .content { padding: 30px; }
+        .intro-text { text-align: center; color: var(--text-secondary); margin-bottom: 30px; font-size: 15px; }
 
-        /* Content */
-        .content {
-            padding: 30px;
-        }
-
-        .intro-text {
-            text-align: center;
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            font-size: 15px;
-        }
-
-        /* Contact Card */
         .contact-card {
             background: #f0f7f4;
             border-left: 4px solid var(--accent-color);
@@ -111,14 +80,9 @@
             margin-bottom: 30px;
         }
 
-        .contact-item {
-            margin-bottom: 15px;
-        }
-
-        .contact-item:last-child {
-            margin-bottom: 0;
-        }
-
+        .contact-item { margin-bottom: 15px; }
+        .contact-item:last-child { margin-bottom: 0; }
+        
         .label {
             font-weight: 600;
             color: var(--primary-color);
@@ -133,22 +97,9 @@
             text-decoration: none;
             font-weight: 500;
             word-break: break-all;
-            transition: color 0.2s;
         }
+        .email-link:hover { color: #219150; text-decoration: underline; }
 
-        .email-link:hover {
-            color: #219150;
-            text-decoration: underline;
-        }
-
-        .response-time {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-top: 5px;
-            display: block;
-        }
-
-        /* FAQ */
         .faq-section h2 {
             font-size: 18px;
             color: var(--primary-color);
@@ -157,33 +108,11 @@
             padding-bottom: 10px;
         }
 
-        .faq-item {
-            margin-bottom: 20px;
-        }
+        .faq-item { margin-bottom: 20px; }
+        .question { font-weight: 600; color: var(--text-main); margin-bottom: 6px; display: flex; align-items: flex-start; }
+        .question span { color: var(--accent-color); margin-right: 6px; font-weight: bold; min-width: 20px; }
+        .answer { color: var(--text-secondary); font-size: 14px; padding-left: 20px; line-height: 1.5; }
 
-        .question {
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 6px;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .question span {
-            color: var(--accent-color);
-            margin-right: 6px;
-            font-weight: bold;
-            min-width: 20px;
-        }
-
-        .answer {
-            color: var(--text-secondary);
-            font-size: 14px;
-            padding-left: 20px;
-            line-height: 1.5;
-        }
-
-        /* Footer */
         .app-info {
             margin-top: 40px;
             padding-top: 20px;
@@ -192,52 +121,33 @@
             font-size: 12px;
             color: #999;
         }
+        .app-info div { margin: 4px 0; }
 
-        .app-info div {
-            margin: 4px 0;
-        }
+        /* Language Logic */
+        [lang="en"] { display: block; }
+        [lang="zh"] { display: none; }
+        
+        /* Inline elements fix */
+        span[lang="en"], strong[lang="en"], a[lang="en"] { display: inline; }
+        span[lang="zh"], strong[lang="zh"], a[lang="zh"] { display: none; }
 
-        /* Utility for language switching */
-        /* Default: Hide English, Show Chinese (if no class or show-zh) */
-        [lang="en"] {
-            display: none;
-        }
-        
-        /* If show-en class is present on body: Hide Chinese, Show English */
-        body.show-en [lang="zh"] {
-            display: none;
-        }
-        
-        body.show-en [lang="en"] {
-            display: block;
-        }
-        
-        /* Ensure inline elements like spans behave correctly */
-        span[lang="en"], strong[lang="en"], a[lang="en"] {
-            display: none;
-        }
-        body.show-en span[lang="en"], 
-        body.show-en strong[lang="en"], 
-        body.show-en a[lang="en"] {
-            display: inline;
-        }
-        
+        body.show-zh [lang="en"] { display: none; }
+        body.show-zh [lang="zh"] { display: block; }
+        body.show-zh span[lang="en"], body.show-zh strong[lang="en"], body.show-zh a[lang="en"] { display: none; }
+        body.show-zh span[lang="zh"], body.show-zh strong[lang="zh"], body.show-zh a[lang="zh"] { display: inline; }
+
         @media (max-width: 480px) {
             body { padding: 20px 15px; }
             header { padding: 30px 20px; }
             .content { padding: 20px; }
-            .lang-switch { top: 10px; right: 10px; font-size: 11px; padding: 4px 10px; }
         }
     </style>
 </head>
-<!-- Changed default class to show-en -->
 <body class="show-en">
 
     <div class="container">
         <header>
-            <!-- Changed default button text to 中文 -->
             <button class="lang-switch" id="langToggle">中文</button>
-            
             <h1>
                 <span lang="zh">Panda Care</span>
                 <span lang="en">Panda Care</span>
@@ -336,30 +246,24 @@
         </div>
     </div>
 
-    <script defer>
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const langToggle = document.getElementById('langToggle');
+            const btn = document.getElementById('langToggle');
+            const body = document.body;
 
-            langToggle.addEventListener('click', toggleLanguage);
-
-            function toggleLanguage() {
-                const body = document.body;
-                const btn = langToggle;
-
+            btn.addEventListener('click', function() {
                 if (body.classList.contains('show-en')) {
-                    // Switch to Chinese
                     body.classList.remove('show-en');
                     body.classList.add('show-zh');
                     btn.textContent = 'English';
                     document.documentElement.lang = 'zh-CN';
                 } else {
-                    // Switch to English
                     body.classList.remove('show-zh');
                     body.classList.add('show-en');
                     btn.textContent = '中文';
                     document.documentElement.lang = 'en';
                 }
-            }
+            });
         });
     </script>
 </body>
